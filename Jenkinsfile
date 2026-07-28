@@ -3,7 +3,9 @@
 
 pipeline {
     agent any
-
+tools {
+        nodejs 'NodeJS-20'   // must match the name you gave it in step 2
+    }
     stages {
         stage('Checkout') {
             steps {
