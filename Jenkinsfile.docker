@@ -1,0 +1,45 @@
+// Assignment #3: Docker Permission RCA
+// This pipeline intentionally reproduces the
+// "permission denied while trying to connect to the Docker daemon socket"
+// error so it can be diagnosed and fixed.
+//
+// IMPORTANT (containerized Jenkins note):
+// Since Jenkins itself is running inside a Docker container on this EC2
+// (not installed natively via systemctl), the root cause here is NOT the
+// classic "jenkins linux user not in docker group" story from the textbook
+// version of this assignment. Instead, check:
+//   1. Was /var/run/docker.sock bind-mounted into the Jenkins container?
+//        docker run ... -v /var/run/docker.sock:/var/run/docker.sock ...
+//   2. Does the user INSIDE the Jenkins container have access to that socket?
+//        The socket is owned by the HOST's docker group GID. The container's
+//        internal user needs to be in a group with that SAME GID -- group
+//        *names* don't matter across the container boundary, only the GID.
+// Document whichever cause actually applies to your setup in the RCA README.
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker info'
+                sh 'docker build -t test-image .'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Docker build succeeded — permissions are correctly configured.'
+        }
+        failure {
+            echo 'Docker build failed. Check console output for the permission error.'
+        }
+    }
+}

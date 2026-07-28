@@ -1,0 +1,17 @@
+{
+  "name": "nodejs-ci-assignment",
+  "version": "1.0.0",
+  "description": "Minimal Node.js app used for Jenkins CI/CD assignments (pipeline, webhook, docker RCA)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha test/**/*.test.js",
+    "build": "mkdir -p dist && cp index.js dist/index.js && echo \"Build complete: $(date)\" > dist/build-info.txt"
+  },
+  "author": "Charan",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^10.4.0",
+    "chai": "^4.4.1"
+  }
+}
