@@ -69,10 +69,4 @@ Document which of these was actually true in your environment.
 user's group membership to match the host docker GID>
 ```
 Testing webhook
-## Screenshots
 
-- [ ] Blue Ocean pipeline view (Assignment #1)
-- [ ] GitHub webhook delivery — 200 OK (Assignment #2)
-- [ ] Jenkins console output — "Started by GitHub push by \<username\>" (Assignment #2)
-- [ ] Docker permission error log (Assignment #3, before fix)
-- [ ] Green Docker build (Assignment #3, after fix)
